@@ -7,7 +7,8 @@
 
 [![Join the chat at https://gitter.im/Arquisoft/participants0](https://badges.gitter.im/Arquisoft/participants0.svg)](https://gitter.im/Arquisoft/participants0?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Skeleton of participants module
+To run ApacheKafka, go into the folder kafka_2.11 ... and use the custom created script to run on Windows startup.bat
+
 
 # Authors
 

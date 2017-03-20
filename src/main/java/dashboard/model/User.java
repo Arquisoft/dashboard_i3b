@@ -1,0 +1,13 @@
+package dashboard.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+/**
+ * Created by juanf on 20/03/2017.
+ */
+@Document(collection = "VotingSystem")
+public class User {
+    @Id
+    String id;
+}

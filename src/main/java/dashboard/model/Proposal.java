@@ -14,16 +14,21 @@ public class Proposal {
     @Id
     String id;
 
-    private List<Vote> votes; //This is the list of votes that will be linked in DB
-    private List<User> supporters; //This is the list of supporters that should be User instead of String
+    private List<Vote> upvotes;
+    private List<Vote> downvotes;
     private List<Comment> comments;
 
     @Override
     public String toString() {
-        return "Proposal{" +
-                "votes=" + votes.size() +
-                ", supporters=" + supporters.size() +
-                ", comments=" + comments +
-                '}';
+        StringBuilder s = null;
+
+        s.append("Proposal{" +
+                "votes=" + upvotes.size() + downvotes.size() +
+                ", supporters=" + upvotes.size() +
+                ", comments={");
+        comments.forEach(comment -> s.append("{" + comment.toString() + "}"));
+        s.append('}');
+
+        return s.toString();
     }
 }

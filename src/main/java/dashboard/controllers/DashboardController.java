@@ -4,17 +4,14 @@ import dashboard.model.Proposal;
 import dashboard.model.User;
 import dashboard.model.Vote;
 import dashboard.repository.DBService;
-import hello.MainController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +38,6 @@ public class DashboardController {
     private static final Logger logger = Logger.getLogger(DashboardController.class);
 
 
-
     @RequestMapping("/dashboard")
     SseEmitter subscribeUpdates() {
         SseEmitter sseEmitter = new SseEmitter();
@@ -63,14 +59,22 @@ public class DashboardController {
         proposals = service.getAllProposal();
         synchronized (this.sseEmitters) {
             for (SseEmitter sseEmitter : this.sseEmitters) {
-                try {
-                    sseEmitter.send(data);
-                } catch (Exception e) {
-                    logger.error("Se ha cerrado el navegador");
-                }
+
+                proposals.parallelStream().forEach(c -> {
+                    try {
+                        sseEmitter.send(c.toString());
+                    } catch (Exception e) {
+                        logger.error("Se ha cerrado el navegador");
+                    }
+                });
+
             }
         }
+        //creo que aqui se puede mandar un modelo y data como un atributo del modelo igual que la anterior vez
         return data;
     }
+
+    //Aqui estaría bien que hubiera otros kafka listener con los metodos
+    // que hay en dashboardListener y que enviara los logs.
 
 }

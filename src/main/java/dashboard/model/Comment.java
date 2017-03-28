@@ -16,4 +16,12 @@ public class Comment {
     User user;
 
     String commentString;
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "user=" + user.getEmail() +
+                ", commentString='" + commentString + '\'' +
+                '}';
+    }
 }

@@ -13,10 +13,15 @@ public class DashboardListener {
 
     private static final Logger logger = Logger.getLogger(DashboardListener.class);
 
+    /*
+        Topics: councilstaff, councilmen, otherauthorities, updates
+     */
+
     @KafkaListener(topics = "councilStaff")
     public void listenCouncilStaff(String data) {
         logger.info("New message received for council staff: \"" + data + "\"");
     }
+
 
     @KafkaListener(topics = "councilmen")
     public void listenCouncilmen(String data) {

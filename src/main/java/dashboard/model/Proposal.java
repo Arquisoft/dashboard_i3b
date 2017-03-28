@@ -15,6 +15,15 @@ public class Proposal {
     String id;
 
     private List<Vote> votes; //This is the list of votes that will be linked in DB
-    private List<String> supporters; //This is the list of supporters that should be User instead of String
+    private List<User> supporters; //This is the list of supporters that should be User instead of String
     private List<Comment> comments;
+
+    @Override
+    public String toString() {
+        return "Proposal{" +
+                "votes=" + votes.size() +
+                ", supporters=" + supporters.size() +
+                ", comments=" + comments +
+                '}';
+    }
 }

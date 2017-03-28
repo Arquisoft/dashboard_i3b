@@ -15,4 +15,12 @@ public class Vote {
 
     User user;
     int value; //Value upvote or downvote
+
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "value=" + value +
+                '}';
+    }
 }

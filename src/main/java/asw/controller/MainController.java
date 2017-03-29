@@ -1,10 +1,14 @@
-package dashboard.controllers;
+package asw.controller;
 
-import dashboard.model.Proposal;
-import dashboard.model.User;
-import dashboard.model.Vote;
-import dashboard.repository.DBService;
-import hello.MainController;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import asw.model.Proposal;
+import asw.model.User;
+import asw.model.Vote;
+import asw.repository.DBService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -13,22 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-/**
- * Created by juanf on 20/03/2017.
- */
 @Controller
-public class DashboardController {
+public class MainController {
 
-    private final DBService service;
     private static final Logger logger = Logger.getLogger(MainController.class);
+    private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
+    private SseEmitter emitter = new SseEmitter();
+    private final DBService service;
+
 
     @Autowired
-    DashboardController(DBService service) {
+    MainController(DBService service) {
         this.service = service;
     }
 
@@ -36,8 +35,6 @@ public class DashboardController {
     List<Proposal> proposals;
     List<User> users;
     List<Vote> votes;
-
-    private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
 
 
     @RequestMapping("/")
@@ -93,7 +90,7 @@ public class DashboardController {
         return data;
     }
 
-    @KafkaListener(topics = "updates")
+    @KafkaListener(topics = "update")
     public void sendMessage(String data) {
         showMessage(data, "updates");
     }

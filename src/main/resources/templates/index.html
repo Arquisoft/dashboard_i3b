@@ -1,15 +1,15 @@
 <html>
 <head>
-    <title>Dashboard</title>
-    <script type="text/javascript">
-        //<![CDATA[
-        var source = new EventSource("/updates");
+<title>Dashboard</title>
+<script type="text/javascript">
+//<![CDATA[
+var source = new EventSource("/updates");
 
-        source.onmessage = function(event) {
-            document.getElementById("messages").innerHTML += (event.data + "</br>");
-        };
-        //]]>
-    </script>
+source.onmessage = function(event) {
+document.getElementById("messages").innerHTML += (event.data + "</br>");
+};
+//]]>
+</script>
 </head>
 <body>
 <h1>Dashboard</h1>

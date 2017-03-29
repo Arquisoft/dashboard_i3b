@@ -1,4 +1,4 @@
-package dashboard.model;
+package asw.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -30,7 +30,7 @@ public class User {
     private String NIF;
     private String email;
 
-    private User() {}
+    public User() {}
 
     public User(String firstName, String lastName, String email, Date birthDate) {
         this.firstName = firstName;

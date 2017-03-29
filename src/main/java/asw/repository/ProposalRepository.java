@@ -1,6 +1,6 @@
-package dashboard.repository;
+package asw.repository;
 
-import dashboard.model.Proposal;
+import asw.model.Proposal;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

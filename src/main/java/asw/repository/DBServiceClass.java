@@ -1,7 +1,7 @@
-package dashboard.repository;
+package asw.repository;
 
-import dashboard.model.Proposal;
-import dashboard.model.User;
+import asw.model.Proposal;
+import asw.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

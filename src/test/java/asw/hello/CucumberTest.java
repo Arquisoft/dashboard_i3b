@@ -1,4 +1,4 @@
-package hello;
+package asw.hello;
 
 import org.junit.runner.RunWith;
 

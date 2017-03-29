@@ -7,7 +7,6 @@
         var source = new EventSource("/updates");
 
         source.onmessage = function(event) {
-        console.log("HI");
             document.getElementById("messages").innerHTML += (event.data + "</br>");
         };
         //]]>

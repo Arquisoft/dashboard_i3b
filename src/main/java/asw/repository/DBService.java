@@ -1,8 +1,7 @@
-package dashboard.repository;
+package asw.repository;
 
-import dashboard.model.Proposal;
-import dashboard.model.User;
-import hello.UserInfo;
+import asw.model.Proposal;
+import asw.model.User;
 
 import java.util.List;
 

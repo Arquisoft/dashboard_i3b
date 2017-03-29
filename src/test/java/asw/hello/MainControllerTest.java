@@ -1,10 +1,11 @@
-package hello;
+package asw.hello;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 import java.net.URL;
 
+import asw.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,12 +42,6 @@ public class MainControllerTest {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		assertThat(response.getBody(), containsString("Hola"));
 	}
-	
-	@Test
-	public void getUser() throws Exception {
-		String userURI = base.toString() + "/user";  
-		ResponseEntity<String> response = template.getForEntity(userURI, String.class);
-		UserInfo expected = new UserInfo("pepe",0);
-	}
+
 
 }

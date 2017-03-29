@@ -1,5 +1,8 @@
-package dashboard.kafka.producer;
+package asw.kafka.mockProducer;
 
+import java.util.Date;
+
+import javax.annotation.ManagedBean;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +12,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import javax.annotation.ManagedBean;
-import java.util.Date;
+import asw.kafka.DashboardListener;
 
 @ManagedBean
 public class MessageProducer {
-	private static final Logger logger = Logger.getLogger(MessageProducer.class);
+	private static final Logger logger = Logger.getLogger(DashboardListener.class);
 
 	@Autowired
-	private KafkaTemplate<String, String> template;
+	KafkaTemplate<String, String> template;
 
-	// Send message each 3 secs
 	@Scheduled(cron = "*/3 * * * * *")
 	public void send2() {
 		// Simple message to test

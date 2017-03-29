@@ -1,4 +1,4 @@
-package dashboard.model;
+package asw.model;
 
 /**
  * Created by juanf on 20/03/2017.

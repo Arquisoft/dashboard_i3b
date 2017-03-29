@@ -20,7 +20,6 @@ public class MessageProducer {
 	private KafkaTemplate<String, String> template;
 
 	// Send message each 3 secs
-
 	@Scheduled(cron = "*/3 * * * * *")
 	public void send2() {
 		// Simple message to test

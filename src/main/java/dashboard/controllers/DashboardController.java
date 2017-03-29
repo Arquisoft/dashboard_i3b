@@ -4,7 +4,6 @@ import dashboard.model.Proposal;
 import dashboard.model.User;
 import dashboard.model.Vote;
 import dashboard.repository.DBService;
-import hello.MainController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -25,13 +24,12 @@ import java.util.List;
 public class DashboardController {
 
     private final DBService service;
-    private static final Logger logger = Logger.getLogger(MainController.class);
+    private static final Logger logger = Logger.getLogger(DashboardController.class);
 
     @Autowired
     DashboardController(DBService service) {
         this.service = service;
     }
-
 
     List<Proposal> proposals;
     List<User> users;
@@ -39,8 +37,7 @@ public class DashboardController {
 
     private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
 
-
-    @RequestMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String handleRequest() {
         return "index";
     }

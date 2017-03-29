@@ -54,3 +54,6 @@ local.properties
 
 *.iml
 .idea
+
+# Kafka files
+/kafka_2.11-0.10.2.0/logs/*

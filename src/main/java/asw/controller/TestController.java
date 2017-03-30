@@ -42,7 +42,7 @@ public class TestController {
     }
 
     @KafkaListener(topics = "councilStaff")
-    public void testMayMays(@Payload String data) {
+    public void testAjaxRefresh(@Payload String data) {
         Matcher newProposalMatcher = newProposalPattern.matcher(data);
         Matcher upvotedProposalMatcher = upvotedProposalPattern.matcher(data);
         Matcher downvotedProposalMatcher = downvotedProposalPattern.matcher(data);

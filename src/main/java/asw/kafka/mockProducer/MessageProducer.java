@@ -62,8 +62,6 @@ public class MessageProducer {
 		});
 	}
 
-	private int i = 0;
-
 	@Scheduled(cron = "*/5 * * * * *")
 	public void sendProposalMessages() {
 		ListenableFuture<SendResult<String, String>> future;
@@ -113,6 +111,22 @@ public class MessageProducer {
 			@Override
 			public void onFailure(Throwable ex) {
 				logger.error("Error sending " + message3);
+			}
+		});
+
+		String message4 = "Downvoted proposal [Test2]";
+
+		future = template.send("councilStaff", message4);
+
+		//Log if it is sent or not
+		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+			@Override
+			public void onSuccess(SendResult<String, String> result) {
+				logger.info("Success sending " + message4);
+			}
+			@Override
+			public void onFailure(Throwable ex) {
+				logger.error("Error sending " + message4);
 			}
 		});
 	}

@@ -22,7 +22,11 @@ public class Proposal {
     public void setTitle(String title) { this.title = title; }
 
     private int votes;
-    public int getVotes() { return votes; }
+    private int upvotes;
+    private int downvotes;
+    public int getVotes() { return upvotes - downvotes; }
+    public int getUpvotes() { return upvotes; }
+    public int getDownvotes() { return downvotes; }
 
     private List<Comment> comments;
 
@@ -35,11 +39,11 @@ public class Proposal {
     }
 
     public void addUpvote() {
-        votes++;
+        upvotes++;
     }
 
     public void addDownvote() {
-        votes--;
+        downvotes++;
     }
 
     @Override

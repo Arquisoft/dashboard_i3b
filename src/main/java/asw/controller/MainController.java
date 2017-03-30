@@ -122,13 +122,5 @@ public class MainController {
         showMessage(data, "updates");
     }
 
-//    @KafkaListener(topics = "councilStaff")
-  //  public void sendMessage2(String data) {
-    //    showMessage(data, "councilStaff");
-    //}
-
-    //Aqui estaría bien que hubiera otros kafka listener con los metodos
-    // que hay en dashboardListener y que enviara los logs.
-
 
 }

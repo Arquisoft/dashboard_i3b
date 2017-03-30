@@ -3,28 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <title>Dashboard</title>
-    <script type="text/javascript">
-        //<![CDATA[
-        var source = new EventSource("/updates");
 
-        source.onmessage = function(event) {
-            document.getElementById("messages").innerHTML += (event.data + "</br>");
-        };
-
-        var sourceLogs = new EventSource("/councilstaff");
-
-        sourceLogs.onmessage = function(event) {
-            document.getElementById("logs").innerHTML += (event.data + "</br>");
-        };
-
-        //]]>
-    </script>
 </head>
 <body>
 <h1>Dashboard</h1>
-<h2>Receiving messages:</h2>
-<div id="messages"></div>
-<h2>Receiving logs:</h2>
-<div id="logs"></div>
+<a href="/test">Council staff test</a>
 </body>
 </html>

@@ -12,7 +12,10 @@ import asw.repository.DBService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.support.BindingAwareModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -39,7 +42,7 @@ public class MainController {
 
 
     @RequestMapping("/")
-    public String handleRequest() {
+    public String handleRequest(Model model) {
         return "index";
     }
 
@@ -71,6 +74,7 @@ public class MainController {
         }
         return log;
     }
+
 
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
@@ -118,10 +122,10 @@ public class MainController {
         showMessage(data, "updates");
     }
 
-    @KafkaListener(topics = "councilStaff")
-    public void sendMessage2(String data) {
-        showMessage(data, "councilStaff");
-    }
+//    @KafkaListener(topics = "councilStaff")
+  //  public void sendMessage2(String data) {
+    //    showMessage(data, "councilStaff");
+    //}
 
     //Aqui estaría bien que hubiera otros kafka listener con los metodos
     // que hay en dashboardListener y que enviara los logs.

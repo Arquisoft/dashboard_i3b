@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Council staff dashboard</title>
+</head>
+<body>
+<script>
+(function pollServer() {
+    $.ajax("/test", {
+     success: function(data){
+        $('body').load("/test");
+     }
+
+   });
+}());
+</script>
+<h1>User information</h1>
+<div id="toupdate">
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Votes</th>
+    </tr>
+    <tr th:each="prop : ${proposals}">
+        <td th:text="${prop.title}"></td>
+        <td th:text="${prop.votes}"></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

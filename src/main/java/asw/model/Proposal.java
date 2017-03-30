@@ -3,6 +3,8 @@ package asw.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,25 +19,61 @@ public class Proposal {
     private String title;
 
     public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    private List<Vote> upvotes;
-    private List<Vote> downvotes;
+    private int votes;
+    public int getVotes() { return votes; }
+
     private List<Comment> comments;
+
+    public Proposal() {
+        votes = 0;
+    }
+
+    public Proposal(String title) {
+        this.title= title;
+    }
+
+    public void addUpvote() {
+        votes++;
+    }
+
+    public void addDownvote() {
+        votes--;
+    }
 
     @Override
     public String toString() {
-        StringBuilder s = null;
+        StringBuilder s = new StringBuilder();
 
         s.append("[Proposal: ")
                 .append(title)
                 .append(" votes: ")
-                .append(upvotes.size() + downvotes.size())
-                .append(" supporters: ")
-                .append(upvotes.size())
+                .append(votes)
+                //.append(" supporters: ")
+                //.append(upvotes.size())
                 .append(" comments: {");
-        comments.forEach(comment -> s.append('\"' + comment.toString() + '\"'));
+        //comments.forEach(comment -> s.append('\"' + comment.toString() + '\"'));
+        //TODO Fix
         s.append("}]");
 
         return s.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Proposal other = (Proposal) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }

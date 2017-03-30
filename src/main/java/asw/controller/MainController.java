@@ -22,6 +22,7 @@ public class MainController {
 
     private static final Logger logger = Logger.getLogger(MainController.class);
     private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
+    private List<SseEmitter> logsCouncilStaff = Collections.synchronizedList(new ArrayList<>());
     private SseEmitter emitter = new SseEmitter();
     private final DBService service;
 
@@ -57,34 +58,56 @@ public class MainController {
     }
 
 
+    @RequestMapping("/councilstaff")
+    SseEmitter subscribeLogs() {
+        SseEmitter log = new SseEmitter();
+        synchronized (this.logsCouncilStaff) {
+            this.logsCouncilStaff.add(log);
+            log.onCompletion(() -> {
+                synchronized (this.logsCouncilStaff) {
+                    this.logsCouncilStaff.remove(log);
+                }
+            });
+        }
+        return log;
+    }
+
+
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public String showMessage(String data, String topic) {
         //proposals = service.getAllProposal();
-        synchronized (this.sseEmitters) {
-            for (SseEmitter sseEmitter : this.sseEmitters) {
-                try {
-                    switch (topic) {
-                        case "updates":
-                            /*proposals.parallelStream().forEach(c -> {
+        switch (topic) {
+            case "updates":
+                synchronized (this.sseEmitters) {
+                    for (SseEmitter sseEmitter : this.sseEmitters) {
+                        /*proposals.parallelStream().forEach(c -> {
                                 try {
                                     sseEmitter.send(c.toString());
                                 } catch (IOException e) {
                                     logger.error("Browser has closed");
                                 }
                             });*/
+                        try {
                             sseEmitter.send("update " + data);
-                            break;
-                        case "councilStaff":
-                            sseEmitter.send("CouncilStaff log: " + data);
+                        } catch (IOException e) {
+                            logger.error("Browser has closed");
+                        }
 
-                            break;
                     }
-                } catch (IOException e) {
-                    logger.error("Browser has closed");
                 }
+                break;
+            case "councilStaff":
+                synchronized (this.logsCouncilStaff) {
+                    for (SseEmitter sseEmitter : this.logsCouncilStaff) {
+                        try {
+                            sseEmitter.send("CouncilStaff log: " + data);
+                        } catch (IOException e) {
+                            logger.error("Browser has closed");
+                        }
+                    }
+                }
+                break;
 
-
-            }
         }
         //creo que aqui se puede mandar un modelo y data como un atributo del modelo igual que la anterior vez
         return data;

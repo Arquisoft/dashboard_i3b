@@ -16,10 +16,10 @@ public class DashboardListener {
         Topics: councilstaff, councilmen, otherauthorities, updates
      */
 
-    @KafkaListener(topics = "councilStaff")
+    /*@KafkaListener(topics = "councilStaff")
     public void listenCouncilStaff(String data) {
         logger.info("New message received for council staff: \"" + data + "\"");
-    }
+    }*/
 
 
     @KafkaListener(topics = "councilmen")

@@ -22,14 +22,6 @@ public class DashboardListener {
     }*/
 
 
-    @KafkaListener(topics = "councilmen")
-    public void listenCouncilmen(String data) {
-        logger.info("New message received for councilmen: \"" + data + "\"");
-    }
 
-    @KafkaListener(topics = "otherAuthorities")
-    public void listenOtherAuthorities(String data) {
-        logger.info("New message received for other authorities: \"" + data + "\"");
-    }
 
 }

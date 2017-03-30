@@ -23,14 +23,16 @@
 </head>
 <body>
 <script>
-(function pollServer() {
-    $.ajax("/test", {
-     success: function(data){
-        $('body').load("/test");
-     }
+    (function pollServer() {
+        setTimeout(function () {
+            $.ajax("/test", {
+                success: function (data) {
+                    $('body').load("/test");
+                }
 
-   });
-}());
+            });
+        }, 2000);
+    })();
 </script>
 <h1>List of proposals</h1>
 <div id="proposals_list">

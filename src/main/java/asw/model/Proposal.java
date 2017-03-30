@@ -14,6 +14,10 @@ public class Proposal {
     @Id
     String id;
 
+    private String title;
+
+    public String getTitle() { return title; }
+
     private List<Vote> upvotes;
     private List<Vote> downvotes;
     private List<Comment> comments;
@@ -22,12 +26,15 @@ public class Proposal {
     public String toString() {
         StringBuilder s = null;
 
-        s.append("Proposal{" +
-                "votes=" + upvotes.size() + downvotes.size() +
-                ", supporters=" + upvotes.size() +
-                ", comments={");
-        comments.forEach(comment -> s.append("{" + comment.toString() + "}"));
-        s.append('}');
+        s.append("[Proposal: ")
+                .append(title)
+                .append(" votes: ")
+                .append(upvotes.size() + downvotes.size())
+                .append(" supporters: ")
+                .append(upvotes.size())
+                .append(" comments: {");
+        comments.forEach(comment -> s.append('\"' + comment.toString() + '\"'));
+        s.append("}]");
 
         return s.toString();
     }

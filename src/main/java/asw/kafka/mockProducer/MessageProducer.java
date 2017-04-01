@@ -20,6 +20,81 @@ import scala.collection.mutable.HashTable;
 
 @ManagedBean
 public class MessageProducer {
+  
+	private static final Logger logger = Logger.getLogger(DashboardListener.class);
+
+	@Autowired
+	private KafkaTemplate<String, String> template;
+
+	//@Scheduled(cron = "*/5 * * * * *")
+	public void sendProposalMessages() {
+		ListenableFuture<SendResult<String, String>> future;
+		// Simple message to test
+		/*String message = "New proposal [\"Test create\"]";
+
+		future = template.send("councilStaff", message);
+
+		//Log if it is sent or not
+		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+			@Override
+			public void onSuccess(SendResult<String, String> result) {
+				logger.info("Success sending " + message);
+			}
+			@Override
+			public void onFailure(Throwable ex) {
+				logger.error("Error sending " + message);
+			}
+		});
+*/
+		String message2 = "Upvoted proposal [Test create]";
+
+		future = template.send("councilStaff", message2);
+
+		//Log if it is sent or not
+		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+			@Override
+			public void onSuccess(SendResult<String, String> result) {
+				logger.info("Success sending " + message2);
+			}
+			@Override
+			public void onFailure(Throwable ex) {
+				logger.error("Error sending " + message2);
+			}
+		});
+
+		String message3 = "Upvoted proposal [Test]";
+
+		future = template.send("councilStaff", message3);
+
+		//Log if it is sent or not
+		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+			@Override
+			public void onSuccess(SendResult<String, String> result) {
+				logger.info("Success sending " + message3);
+			}
+			@Override
+			public void onFailure(Throwable ex) {
+				logger.error("Error sending " + message3);
+			}
+		});
+
+		String message4 = "Downvoted proposal [Test2]";
+
+		future = template.send("councilStaff", message4);
+
+		//Log if it is sent or not
+		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+			@Override
+			public void onSuccess(SendResult<String, String> result) {
+				logger.info("Success sending " + message4);
+			}
+			@Override
+			public void onFailure(Throwable ex) {
+				logger.error("Error sending " + message4);
+			}
+		});
+	}
+  
     private static final Logger logger = Logger.getLogger(DashboardListener.class);
 
 
@@ -78,4 +153,5 @@ public class MessageProducer {
             }
         });
     }
+  
 }

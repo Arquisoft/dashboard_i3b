@@ -6,7 +6,7 @@ tmp/
 *.bak
 *.swp
 *~.nib
-*.iml
+dashboardi3b.iml
 local.properties
 .settings/
 .loadpath

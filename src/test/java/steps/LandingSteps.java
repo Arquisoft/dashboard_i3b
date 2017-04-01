@@ -1,8 +1,10 @@
 package steps;
 
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import asw.Application;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationContextLoader;
@@ -13,10 +15,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.Assert;
 import org.springframework.web.context.WebApplicationContext;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import asw.Application;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 
 @ContextConfiguration(classes= Application.class, loader=SpringApplicationContextLoader.class)
 @WebAppConfiguration
@@ -30,8 +33,9 @@ public class LandingSteps {
 
     @Value("${local.server.port}")
     protected int port;
-
-
+    
+    @Given("^the user navigates to ")
+    
     @When("^the client calls /$")
     public void the_client_calls() throws Throwable {
         Assert.notNull(context);

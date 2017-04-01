@@ -1,4 +1,4 @@
-package steps;
+package asw.steps;
 
 import asw.Application;
 import asw.kafka.mockProducer.MessageProducer;

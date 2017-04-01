@@ -41,31 +41,31 @@ public class TestController {
         service.insertProposal(new Proposal("Test create"));
     }
 
-    @KafkaListener(topics = "councilStaff")
-    public void testAjaxRefresh(@Payload String data) {
-        Matcher newProposalMatcher = newProposalPattern.matcher(data);
-        Matcher upvotedProposalMatcher = upvotedProposalPattern.matcher(data);
-        Matcher downvotedProposalMatcher = downvotedProposalPattern.matcher(data);
-        //Matcher newProposalMatcher = newProposalPattern.matcher(data);
-        if (newProposalMatcher.matches()) { // New Proposal
-            String title = newProposalMatcher.group(1);
-            Proposal proposal = new Proposal(title);
-            service.insertProposal(proposal);
-
-        }
-        else if (upvotedProposalMatcher.matches()) { // Upvote proposal
-            String title = upvotedProposalMatcher.group(1);
-            service.upvoteProposal(title);
-        }
-        else if (downvotedProposalMatcher.matches()) { // Downvote proposal
-            String title = downvotedProposalMatcher.group(1);
-            service.downvoteProposal(title);
-        }
-        else {
-            System.out.println("String [" + data + "] not recognized");
-        }
-
-    }
+//    @KafkaListener(topics = "councilStaff")
+//    public void testAjaxRefresh(@Payload String data) {
+//        Matcher newProposalMatcher = newProposalPattern.matcher(data);
+//        Matcher upvotedProposalMatcher = upvotedProposalPattern.matcher(data);
+//        Matcher downvotedProposalMatcher = downvotedProposalPattern.matcher(data);
+//        //Matcher newProposalMatcher = newProposalPattern.matcher(data);
+//        if (newProposalMatcher.matches()) { // New Proposal
+//            String title = newProposalMatcher.group(1);
+//            Proposal proposal = new Proposal(title);
+//            service.insertProposal(proposal);
+//
+//        }
+//        else if (upvotedProposalMatcher.matches()) { // Upvote proposal
+//            String title = upvotedProposalMatcher.group(1);
+//            service.upvoteProposal(title);
+//        }
+//        else if (downvotedProposalMatcher.matches()) { // Downvote proposal
+//            String title = downvotedProposalMatcher.group(1);
+//            service.downvoteProposal(title);
+//        }
+//        else {
+//            System.out.println("String [" + data + "] not recognized");
+//        }
+//
+//    }
 
 
     @RequestMapping(path = "/test")

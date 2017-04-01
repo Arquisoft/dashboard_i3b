@@ -8,5 +8,36 @@
 <body>
 <h1>Dashboard</h1>
 <a href="/test">Council staff test</a>
+    <script type="text/javascript">
+        //<![CDATA[
+        var source = new EventSource("/otherAuthorities");
+
+        source.onmessage = function(event) {
+            document.getElementById("logsOtherAuth").innerHTML += (event.data + "</br>");
+        };
+
+        var sourceLogs = new EventSource("/councilstaff");
+
+        sourceLogs.onmessage = function(event) {
+            document.getElementById("logscouncilstaff").innerHTML += (event.data + "</br>");
+        };
+
+        var sourceLogs = new EventSource("/councilmen");
+
+        sourceLogs.onmessage = function(event) {
+            document.getElementById("logscouncilmen").innerHTML += (event.data + "</br>");
+        };
+
+        //]]>
+    </script>
+</head>
+<body>
+<h1>Dashboard</h1>
+<h2>Receiving logs CouncilMen:</h2>
+<div id="logscouncilmen"></div>
+<h2>Receiving logs CouncilStaff:</h2>
+<div id="logscouncilstaff"></div>
+<h2>Receiving logs Other Auth:</h2>
+<div id="logsOtherAuth"></div>
 </body>
 </html>

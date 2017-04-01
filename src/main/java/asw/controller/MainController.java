@@ -24,8 +24,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 public class MainController {
 
     private static final Logger logger = Logger.getLogger(MainController.class);
-    private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
+    private List<SseEmitter> logsCouncilmen = Collections.synchronizedList(new ArrayList<>());
     private List<SseEmitter> logsCouncilStaff = Collections.synchronizedList(new ArrayList<>());
+    private List<SseEmitter> logsOtherAuthorities = Collections.synchronizedList(new ArrayList<>());
     private SseEmitter emitter = new SseEmitter();
     private final DBService service;
 
@@ -46,20 +47,33 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/updates")
-    SseEmitter subscribeUpdates() {
+    @RequestMapping("/councilmen")
+    SseEmitter subscribeCouncilmen() {
         SseEmitter sseEmitter = new SseEmitter();
-        synchronized (this.sseEmitters) {
-            this.sseEmitters.add(sseEmitter);
+        synchronized (this.logsCouncilmen) {
+            this.logsCouncilmen.add(sseEmitter);
             sseEmitter.onCompletion(() -> {
-                synchronized (this.sseEmitters) {
-                    this.sseEmitters.remove(sseEmitter);
+                synchronized (this.logsCouncilmen) {
+                    this.logsCouncilmen.remove(sseEmitter);
                 }
             });
         }
         return sseEmitter;
     }
 
+    @RequestMapping("/otherAuthorities")
+    SseEmitter subscribeOtherAuthorities() {
+        SseEmitter sseEmitter = new SseEmitter();
+        synchronized (this.logsOtherAuthorities) {
+            this.logsOtherAuthorities.add(sseEmitter);
+            sseEmitter.onCompletion(() -> {
+                synchronized (this.logsOtherAuthorities) {
+                    this.logsOtherAuthorities.remove(sseEmitter);
+                }
+            });
+        }
+        return sseEmitter;
+    }
 
     @RequestMapping("/councilstaff")
     SseEmitter subscribeLogs() {
@@ -75,31 +89,9 @@ public class MainController {
         return log;
     }
 
-
-
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public String showMessage(String data, String topic) {
-        //proposals = service.getAllProposal();
         switch (topic) {
-            case "updates":
-                synchronized (this.sseEmitters) {
-                    for (SseEmitter sseEmitter : this.sseEmitters) {
-                        /*proposals.parallelStream().forEach(c -> {
-                                try {
-                                    sseEmitter.send(c.toString());
-                                } catch (IOException e) {
-                                    logger.error("Browser has closed");
-                                }
-                            });*/
-                        try {
-                            sseEmitter.send("update " + data);
-                        } catch (IOException e) {
-                            logger.error("Browser has closed");
-                        }
-
-                    }
-                }
-                break;
             case "councilStaff":
                 synchronized (this.logsCouncilStaff) {
                     for (SseEmitter sseEmitter : this.logsCouncilStaff) {
@@ -111,16 +103,48 @@ public class MainController {
                     }
                 }
                 break;
+            case "councilmen":
+                synchronized (this.logsCouncilmen) {
+                    for (SseEmitter sseEmitter : this.logsCouncilmen) {
+                        try {
+                            sseEmitter.send("Councilmen log: " + data);
+                        } catch (IOException e) {
+                            logger.error("Browser has closed");
+                        }
+                    }
+                }
+                break;
+
+            case "otherAuthorities":
+                synchronized (this.logsOtherAuthorities) {
+                    for (SseEmitter sseEmitter : this.logsOtherAuthorities) {
+                        try {
+                            sseEmitter.send("Other Authorities log: " + data);
+                        } catch (IOException e) {
+                            logger.error("Browser has closed");
+                        }
+                    }
+                }
+                break;
 
         }
-        //creo que aqui se puede mandar un modelo y data como un atributo del modelo igual que la anterior vez
         return data;
     }
 
-    @KafkaListener(topics = "update")
-    public void sendMessage(String data) {
-        showMessage(data, "updates");
+    @KafkaListener(topics = "councilStaff")
+    public void sendMessageCouncilStaff(String data) {
+        showMessage(data, "councilStaff");
     }
 
+
+    @KafkaListener(topics = "councilmen")
+    public void sendMessageCouncilMen(String data) {
+        showMessage(data, "councilmen");
+    }
+
+    @KafkaListener(topics = "otherAuthorities")
+    public void listenOtherAuthorities(String data) {
+        showMessage(data, "otherAuthorities");
+    }
 
 }

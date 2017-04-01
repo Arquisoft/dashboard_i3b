@@ -30,7 +30,7 @@ public class MessageProducer {
     KafkaTemplate<String, String> template;
 
 
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "*/40 * * * * *")
     public void send() {
         topics.put(0, "councilStaff");
         topics.put(1, "otherAuthorities");
@@ -43,6 +43,27 @@ public class MessageProducer {
         String message = "MESSAGE TEST LOG " + topics.get(key)+ " " + new Date();
 
         ListenableFuture<SendResult<String, String>> future = template.send(topics.get(key), message);
+
+        //Log if it is sent or not
+        future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+            @Override
+            public void onSuccess(SendResult<String, String> result) {
+                logger.info("Success sending " + message);
+            }
+
+            @Override
+            public void onFailure(Throwable ex) {
+                logger.error("Error sending " + message);
+            }
+        });
+    }
+
+
+
+    public void send(String topic) {
+        String message = "MESSAGE TEST LOG " + topic+ " " + new Date();
+
+        ListenableFuture<SendResult<String, String>> future = template.send(topic, message);
 
         //Log if it is sent or not
         future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {

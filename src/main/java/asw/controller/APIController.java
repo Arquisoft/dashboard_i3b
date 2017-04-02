@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class APIController {
 
-    @RequestMapping("/user")
-    public User user() {
-        return new User();
-    }
+//    @RequestMapping("/user")
+//    public User user() {
+//        return new User();
+//    }
 
 }

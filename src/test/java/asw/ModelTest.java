@@ -10,9 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ModelTest {
 
@@ -20,6 +18,10 @@ public class ModelTest {
     public void testComment() {
         Comment com = new Comment();
         com.setUser(new User("name", "surname", "email", new Date()));
+        assertNotNull(com.getUser());
+        assertEquals(com.getCommentString(), null);
+        com.setCommentString("comment");
+        assertEquals(com.getCommentString(), "comment");
         com.toString();
     }
 
@@ -34,6 +36,9 @@ public class ModelTest {
         assertEquals(prop.getVotes(), 1);
         prop.addDownvote();
         assertEquals(prop.getVotes(), 0);
+        assertEquals(prop.getUpvotes(), 1);
+        assertEquals(prop.getDownvotes(), 1);
+        prop.toString();
     }
 
     @Test
@@ -60,6 +65,7 @@ public class ModelTest {
         ID = "@irsohgjisejgoiesgj";
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
+        User user0 = new User();
         User user = new User(password, firstName, lastName, email, format.parse(birthDate));
         User user2 = new User(firstName,lastName, email, format.parse(birthDate));
         User user3 = new User(firstName, lastName, email, birthDate, address, nationality, ID, NIF, pollingStation.toString());
@@ -87,6 +93,8 @@ public class ModelTest {
         assertTrue(user3.toString().equals(user3.toString()));
         assertFalse(user2.hashCode() == user3.hashCode());
         assertTrue(user3.hashCode() == user3.hashCode());
+        user0.setPassword("password");
+        assertEquals(user0.getPassword(), "password");
     }
 
     @Test

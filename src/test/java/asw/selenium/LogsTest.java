@@ -11,11 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.net.URI;
@@ -45,60 +41,27 @@ public class LogsTest {
     @Test
     public void testLogs() throws Exception {
         driver.get(baseUrl.toString());
-        Thread.sleep(1000);
-        mp.send("councilStaff");
-        Thread.sleep(5000);
-        mp.send("councilmen");
-        Thread.sleep(5000);
-        mp.send("otherAuthorities");
-        Thread.sleep(5000);
-        mp.send("councilStaff");
-        Thread.sleep(5000);
-        mp.send("councilmen");
-        Thread.sleep(5000);
-        mp.send("otherAuthorities");
-        Thread.sleep(20000);
+//        Thread.sleep(1000);
+//        mp.send("councilStaff");
+//        Thread.sleep(5000);
+//        mp.send("councilmen");
+//        Thread.sleep(5000);
+//        mp.send("otherAuthorities");
+//        Thread.sleep(5000);
+//        mp.send("councilStaff");
+//        Thread.sleep(5000);
+//        mp.send("councilmen");
+//        Thread.sleep(5000);
+//        mp.send("otherAuthorities");
+//        Thread.sleep(20000);
         assertTrue(driver.getPageSource().contains("Dashboard"));
-        //assertTrue(driver.getPageSource().contains("CouncilStaff log: MESSAGE TEST LOG councilStaff"));
-        //assertTrue(driver.getPageSource().contains("Councilmen log: MESSAGE TEST LOG councilmen"));
-        //assertTrue(driver.getPageSource().contains("Other Authorities log: MESSAGE TEST LOG otherAuthorities"));
+//        assertTrue(driver.getPageSource().contains("CouncilStaff log: MESSAGE TEST LOG councilStaff"));
+//        assertTrue(driver.getPageSource().contains("Councilmen log: MESSAGE TEST LOG councilmen"));
+//        assertTrue(driver.getPageSource().contains("Other Authorities log: MESSAGE TEST LOG otherAuthorities"));
     }
 
     @After
     public void tearDown() throws Exception {
         driver.quit();
-    }
-
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
-        }
     }
 }

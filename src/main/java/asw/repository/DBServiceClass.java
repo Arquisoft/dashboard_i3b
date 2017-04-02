@@ -1,8 +1,8 @@
 package asw.repository;
 
+import asw.model.Comment;
 import asw.model.Proposal;
 import asw.model.User;
-import asw.model.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,5 +81,14 @@ public class DBServiceClass implements DBService {
     @Override
     public void insertProposal(Proposal proposal) {
         proposalRepository.insert(proposal);
+    }
+
+    @Override
+    public void addCommentToProposal(String title, Comment comment) {
+        Proposal proposal = proposalRepository.findByTitle(title);
+        proposal.addComment(comment);
+
+        proposalRepository.save(proposal);
+
     }
 }

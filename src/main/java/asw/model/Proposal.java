@@ -15,35 +15,37 @@ public class Proposal {
 
     @Id
     String id;
-
     private String title;
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
     private int votes;
     private int upvotes;
     private int downvotes;
+    private List<Comment> comments;
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
     public int getVotes() { return upvotes - downvotes; }
     public int getUpvotes() { return upvotes; }
     public int getDownvotes() { return downvotes; }
 
-    private List<Comment> comments;
 
     public Proposal() {
-        votes = 0;
+        this.comments = new ArrayList<>();
+        this.votes = 0;
     }
-
     public Proposal(String title) {
+        this.comments = new ArrayList<>();
+        this.votes = 0;
         this.title= title;
     }
 
     public void addUpvote() {
         upvotes++;
     }
-
     public void addDownvote() {
         downvotes++;
+    }
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 
     @Override

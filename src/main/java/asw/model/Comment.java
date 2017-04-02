@@ -12,10 +12,24 @@ public class Comment {
 
     @Id
     String id;
-
     User user;
-
     String commentString;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getCommentString() {
+        return commentString;
+    }
+
+    public void setCommentString(String commentString) {
+        this.commentString = commentString;
+    }
 
     @Override
     public String toString() {

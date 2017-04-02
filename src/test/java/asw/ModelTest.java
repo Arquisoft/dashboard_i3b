@@ -3,7 +3,6 @@ package asw;
 import asw.model.Comment;
 import asw.model.Proposal;
 import asw.model.User;
-import asw.model.Vote;
 import org.junit.Test;
 
 import java.text.DateFormat;
@@ -95,10 +94,5 @@ public class ModelTest {
         assertTrue(user3.hashCode() == user3.hashCode());
         user0.setPassword("password");
         assertEquals(user0.getPassword(), "password");
-    }
-
-    @Test
-    public void testVote() {
-        new Vote().toString();
     }
 }

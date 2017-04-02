@@ -9,6 +9,10 @@
 
 To run ApacheKafka, go into the folder kafka_2.11 ... and use the custom created script to run on Windows startup.bat
 
+To run Gatling tests just run 
+
+     $mvn gatling:execute
+
 
 # Authors
 

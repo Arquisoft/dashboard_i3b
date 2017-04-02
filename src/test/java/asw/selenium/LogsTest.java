@@ -58,7 +58,7 @@ public class LogsTest {
         Thread.sleep(1000);
         mp.send("otherAuthorities");
         Thread.sleep(1000);
-        assertTrue(driver.getPageSource().contains(""));
+        assertTrue(driver.getPageSource().contains("Dashboard"));
         //assertTrue(driver.findElement(By.id("logscouncilstaff")).getText().contains("CouncilStaff log: MESSAGE TEST LOG councilStaff"));
         //assertTrue(driver.findElement(By.id("logscouncilmen")).getText().contains("Councilmen log: MESSAGE TEST LOG councilmen"));
         //assertTrue(driver.findElement(By.id("logsOtherAuth")).getText().contains("Other Authorities log: MESSAGE TEST LOG otherAuthorities"));

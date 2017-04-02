@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@IntegrationTest("server.port:8070")
+@IntegrationTest("server.port:8090")
 public class LogsTest {
     private WebDriver driver;
     private URI baseUrl;
@@ -38,7 +38,7 @@ public class LogsTest {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = new URI("http://localhost:8070/");
+        baseUrl = new URI("http://localhost:8090/");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
@@ -47,21 +47,21 @@ public class LogsTest {
         driver.get(baseUrl.toString());
         Thread.sleep(1000);
         mp.send("councilStaff");
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         mp.send("councilmen");
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         mp.send("otherAuthorities");
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         mp.send("councilStaff");
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         mp.send("councilmen");
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         mp.send("otherAuthorities");
-        Thread.sleep(1000);
+        Thread.sleep(20000);
         assertTrue(driver.getPageSource().contains("Dashboard"));
-        //assertTrue(driver.findElement(By.id("logscouncilstaff")).getText().contains("CouncilStaff log: MESSAGE TEST LOG councilStaff"));
-        //assertTrue(driver.findElement(By.id("logscouncilmen")).getText().contains("Councilmen log: MESSAGE TEST LOG councilmen"));
-        //assertTrue(driver.findElement(By.id("logsOtherAuth")).getText().contains("Other Authorities log: MESSAGE TEST LOG otherAuthorities"));
+        assertTrue(driver.getPageSource().contains("CouncilStaff log: MESSAGE TEST LOG councilStaff"));
+        assertTrue(driver.getPageSource().contains("Councilmen log: MESSAGE TEST LOG councilmen"));
+        assertTrue(driver.getPageSource().contains("Other Authorities log: MESSAGE TEST LOG otherAuthorities"));
     }
 
     @After

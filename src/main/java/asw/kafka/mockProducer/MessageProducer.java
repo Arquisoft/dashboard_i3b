@@ -33,7 +33,7 @@ public class MessageProducer {
 
 	}
 
-    Map<Integer, String> topics = new HashMap<Integer, String>();
+    Map<Integer, String> topics = new HashMap<>();
 
     @Scheduled(cron = "*/3 * * * * *")
     public void send() {
@@ -82,7 +82,7 @@ public class MessageProducer {
         });
     }
 
-    public void testCreateProposal(String topic, String proposal) {
+    private void testCreateProposal(String topic, String proposal) {
 		ListenableFuture<SendResult<String, String>> future;
 		String message = "New proposal [\"" + proposal + "\"]";
 
@@ -101,7 +101,7 @@ public class MessageProducer {
 		});
 	}
 
-	public void testUpvoteProposal(String topic, String proposal) {
+	private void testUpvoteProposal(String topic, String proposal) {
 		ListenableFuture<SendResult<String, String>> future;
 
 		String message = "Upvoted proposal [" + proposal + "]";
@@ -122,7 +122,7 @@ public class MessageProducer {
 		});
 	}
 
-	public void testDownvoteProposal(String topic, String proposal) {
+	private void testDownvoteProposal(String topic, String proposal) {
 		ListenableFuture<SendResult<String, String>> future;
 
 		String message = "Downvoted proposal [" + proposal + "]";

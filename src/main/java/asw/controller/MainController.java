@@ -97,6 +97,7 @@ public class MainController {
                     for (SseEmitter sseEmitter : this.logsCouncilStaff) {
                         try {
                             sseEmitter.send("CouncilStaff log: " + data);
+                            logger.info("send");
                         } catch (IOException e) {
                             logger.error("Browser has closed");
                         }
@@ -108,6 +109,7 @@ public class MainController {
                     for (SseEmitter sseEmitter : this.logsCouncilmen) {
                         try {
                             sseEmitter.send("Councilmen log: " + data);
+                            logger.info("send");
                         } catch (IOException e) {
                             logger.error("Browser has closed");
                         }
@@ -120,6 +122,7 @@ public class MainController {
                     for (SseEmitter sseEmitter : this.logsOtherAuthorities) {
                         try {
                             sseEmitter.send("Other Authorities log: " + data);
+                            logger.info("send");
                         } catch (IOException e) {
                             logger.error("Browser has closed");
                         }
@@ -134,11 +137,13 @@ public class MainController {
     @KafkaListener(topics = "councilStaff")
     public void sendMessageCouncilStaff(String data) {
         showMessage(data, "councilStaff");
+        logger.info("New message received for council staff: \"" + data + "\"");
     }
 
     @KafkaListener(topics = "councilmen")
     public void sendMessageCouncilMen(String data) {
         showMessage(data, "councilmen");
+        logger.info("New message received for council men: \"" + data + "\"");
     }
 
     @KafkaListener(topics = "otherAuthorities")

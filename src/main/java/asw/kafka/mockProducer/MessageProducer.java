@@ -100,7 +100,7 @@ public class MessageProducer {
 
     Map<Integer, String> topics = new HashMap<Integer, String>();
 
-    @Scheduled(cron = "*/40 * * * * *")
+    @Scheduled(cron = "*/10 * * * * *")
     public void send() {
         topics.put(0, "councilStaff");
         topics.put(1, "otherAuthorities");

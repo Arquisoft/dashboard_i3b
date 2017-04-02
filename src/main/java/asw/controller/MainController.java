@@ -136,14 +136,13 @@ public class MainController {
         showMessage(data, "councilStaff");
     }
 
-
     @KafkaListener(topics = "councilmen")
     public void sendMessageCouncilMen(String data) {
         showMessage(data, "councilmen");
     }
 
     @KafkaListener(topics = "otherAuthorities")
-    public void listenOtherAuthorities(String data) {
+    public void sendMessageOtherAuthorities(String data) {
         showMessage(data, "otherAuthorities");
     }
 

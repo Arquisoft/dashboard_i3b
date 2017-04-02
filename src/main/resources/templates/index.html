@@ -10,9 +10,9 @@
 <a href="/test">Council staff test</a>
     <script type="text/javascript">
         //<![CDATA[
-        var source = new EventSource("/otherAuthorities");
+        var s1 = new EventSource("/otherAuthorities");
 
-        source.onmessage = function(event) {
+        sourceLogsAuth.onmessage = function(event) {
             document.getElementById("logsOtherAuth").innerHTML += (event.data + "</br>");
         };
 
@@ -22,9 +22,9 @@
             document.getElementById("logscouncilstaff").innerHTML += (event.data + "</br>");
         };
 
-        var sourceLogs = new EventSource("/councilmen");
+        var sourceLogsCouncilmen = new EventSource("/councilmen");
 
-        sourceLogs.onmessage = function(event) {
+        sourceLogsCouncilmen.onmessage = function(event) {
             document.getElementById("logscouncilmen").innerHTML += (event.data + "</br>");
         };
 

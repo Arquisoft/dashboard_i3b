@@ -7,22 +7,21 @@
 </head>
 <body>
 <h1>Dashboard</h1>
-<a href="/test">Council staff test</a>
     <script type="text/javascript">
         //<![CDATA[
-        var source = new EventSource("/otherAuthorities");
+        var source = new EventSource("/otherAuthorities_logs");
 
         source.onmessage = function(event) {
             document.getElementById("logsOtherAuth").innerHTML += (event.data + "</br>");
         };
 
-        var sourceLogsStaff = new EventSource("/councilstaff");
+        var sourceLogsStaff = new EventSource("/councilstaff_logs");
 
         sourceLogsStaff.onmessage = function(event) {
             document.getElementById("logscouncilstaff").innerHTML += (event.data + "</br>");
         };
 
-        var sourceLogs = new EventSource("/councilmen");
+        var sourceLogs = new EventSource("/councilmen_logs");
 
         sourceLogs.onmessage = function(event) {
             document.getElementById("logscouncilmen").innerHTML += (event.data + "</br>");
@@ -30,11 +29,11 @@
 
         //]]>
     </script>
-<h2>Receiving logs <a href="/councilmen">CouncilMen:</a></h2>
+<h2>Receiving logs <a href="/councilmen">CouncilMen:</a></h2> <a href="/councilmen_logs">(Raw logs)</a>
 <div id="logscouncilmen"></div>
-<h2>Receiving logs <a href="/councilstaff">CouncilStaff:</a></h2>
+<h2>Receiving logs <a href="/councilstaff">CouncilStaff:</a></h2> <a href="/councilstaff_logs">(Raw logs)</a>
 <div id="logscouncilstaff"></div>
-<h2>Receiving logs <a href="/otherAuthorities">Other Auth:</a></h2>
+<h2>Receiving logs <a href="/otherAuthorities">Other Auth:</a></h2> <a href="/otherAuthorities_logs">(Raw logs)</a>
 <div id="logsOtherAuth"></div>
 </body>
 </html>

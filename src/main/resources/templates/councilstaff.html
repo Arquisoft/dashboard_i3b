@@ -25,11 +25,11 @@
 <script>
     (function pollServer() {
         setTimeout(function () {
-            $.ajax("/test", {
+            $.ajax("/councilstaff", {
                 success: function (data) {
-                    $('body').load("/test");
+                    //$('#proposals_list').load("/councilstaff #proposals_list");
+                    $('body').load("/councilstaff");
                 }
-
             });
         }, 2000);
     })();
